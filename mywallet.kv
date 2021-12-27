@@ -1,0 +1,627 @@
+<Label>
+    font_size: 12
+
+<Button>
+    font_size: 20
+
+
+<AccEditWindow>
+    name: 'accEditWindow'
+
+    txi_name: txi_name
+    txi_money: txi_money
+
+
+    GridLayout:
+        cols: 1
+        padding: 10, 0, 10, 10
+
+#-------------------------------------------------------------------------------------
+#       Navbar
+#-------------------------------------------------------------------------------------
+
+        BoxLayout:
+            size_hint: 1, None
+            size: 64, 64
+
+            ActionButton:
+                size: 64, 64
+                icon: 'data\\trash.png'
+                on_release:
+                    con = root.bt_del_pressed()
+                    if con: app.root.current = 'mainWindow'
+                    if con: root.manager.transition.direction = 'left'
+
+            Label:
+                size: 64, 64
+
+            ActionButton:
+                size: 64, 64
+                icon: 'data\\save.png'
+                on_release:
+                    con = root.bt_save_pressed()
+                    if con: app.root.current = 'accDetailWindow'
+                    if con: root.manager.transition.direction = 'left'
+
+#-------------------------------------------------------------------------------------
+#       Panel
+#-------------------------------------------------------------------------------------
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: 1, 1
+            spacing: 10
+
+            GridLayout:
+                size_hint_y: None
+                cols: 1
+
+                Label:
+                    font_size: 25
+                    text: 'Account name:'
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'center'
+
+                TextInput:
+                    id: txi_name
+                    multiline: False
+                    width: 60
+                    text: root.get_acc_name()
+                    font_size: 25
+                    halign: 'left'
+                    valign: 'center'
+                    text_size: self.size
+
+            GridLayout:
+                size_hint_y: None
+                cols: 1
+
+                Label:
+                    font_size: 25
+                    text: 'Money:'
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'center'
+
+                TextInput:
+                    multiline: False
+                    id: txi_money
+                    width: 60
+                    text: str(root.get_acc_money())
+                    font_size: 25
+                    halign: 'left'
+                    valign: 'center'
+                    text_size: self.size
+
+            GridLayout:
+                cols: 1
+
+
+<AccDetailWindow>
+    name: 'accDetailWindow'
+
+    transactions_grid: transactions_grid
+    name_id: name_id
+    money_id: money_id
+
+
+    GridLayout:
+        cols: 1
+        padding: 10, 0, 10, 10
+
+#-------------------------------------------------------------------------------------
+#       Navbar
+#-------------------------------------------------------------------------------------
+
+        BoxLayout:
+            size_hint: 1, None
+            size: 64, 64
+
+            ActionButton:
+                size: 64, 64
+                icon: 'data\\edit.png'
+                on_release:
+                    app.root.current = 'accEditWindow'
+                    root.manager.transition.direction = 'right'
+            Label:
+                size: 64, 64
+
+            ActionButton:
+                size: 64, 64
+                icon: 'data\\right_arrow.png'
+                on_release:
+                    app.root.current = 'mainWindow'
+                    root.manager.transition.direction = 'left'
+
+
+#-------------------------------------------------------------------------------------
+#       info
+#-------------------------------------------------------------------------------------
+
+        GridLayout:
+            cols: 1
+            size_hint: 1, 0.5
+
+            GridLayout:
+                cols: 2
+
+                Label:
+                    size_hint_x: None
+                    font_size: 25
+                    text: 'Name:'
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'center'
+                Label:
+                    id: name_id
+                    width: 60
+                    text: str(root.get_cur_acc_name())
+                    font_size: 25
+                    halign: 'right'
+                    valign: 'center'
+                    text_size: self.size
+
+            GridLayout:
+                cols: 2
+
+                Label:
+                    size_hint_x: None
+                    font_size: 25
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'center'
+                    text: 'Money:'
+
+                Label:
+                    id: money_id
+                    text: str(root.get_cur_acc_money())
+                    font_size: 25
+                    halign: 'right'
+                    valign: 'center'
+                    text_size: self.size
+
+            GridLayout:
+                cols: 1
+
+                Label:
+                    font_size: 25
+                    width: 130
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'bottom'
+                    text: 'Transactions:'
+
+#-------------------------------------------------------------------------------------
+#       transfers
+#-------------------------------------------------------------------------------------
+
+        GridLayout:
+            cols:1
+            id: transactions_grid
+
+
+<MainWindow>
+    name: 'mainWindow'
+    accs_id: accs_id
+
+
+    GridLayout:
+        cols: 1
+        padding: 10, 0, 10, 10
+
+#-------------------------------------------------------------------------------------
+#       Navbar
+#-------------------------------------------------------------------------------------
+
+        BoxLayout:
+            size_hint: 1, None
+            size: 64, 64
+
+            ActionButton:
+                size: 64, 64
+                icon: 'data\\add.png'
+                on_release:
+                    root.bt_add_new_acc_pressed()
+
+            Label:
+                size: 64, 64
+
+            ActionButton:
+                size: 64, 64
+                icon: 'data\\right_arrow.png'
+                on_release:
+                    app.root.current = 'calcWindow'
+                    root.manager.transition.direction = 'left'
+
+#-------------------------------------------------------------------------------------
+#       Accounts
+#-------------------------------------------------------------------------------------
+
+        GridLayout:
+            id: accs_id
+            cols: 2
+
+#-------------------------------------------------------------------------------------
+#       Categories
+#-------------------------------------------------------------------------------------
+
+        GridLayout:
+            cols: 1
+            size_hint: 1, 0.2
+            padding: 0, 0, 0, 5
+
+            Button:
+                text: 'Categories'
+                on_release:
+                    app.root.current = 'categoriesWindow'
+                    root.manager.transition.direction = 'right'
+
+#-------------------------------------------------------------------------------------
+#       New record
+#-------------------------------------------------------------------------------------
+
+        GridLayout:
+            cols: 3
+            size_hint: 1, 0.3
+
+            Button:
+                text: 'New record'
+                on_release:
+                    app.root.current = 'calcWindow'
+                    root.manager.transition.direction = 'left'
+
+
+<CalcWindow>
+    name: 'calcWindow'
+
+    main_lbl: main_lbl
+    bt_income: bt_income
+    bt_expence: bt_expence
+    bt_transfer: bt_transfer
+    current_tran_lbl: current_tran_lbl
+    current_tran_curse: current_tran_curse
+    sp1: sp1
+    sp2: sp2
+    acc_lbl_1: acc_lbl_1
+    acc_lbl_mid: acc_lbl_mid
+    acc_lbl_2: acc_lbl_2
+
+
+    GridLayout:
+        cols: 1
+        padding: 10, 0, 10, 10
+
+#-------------------------------------------------------------------------------------
+#       Bar
+#-------------------------------------------------------------------------------------
+
+        BoxLayout:
+            size_hint: 1, None
+            size: 64, 64
+
+            ActionButton:
+                size: 64, 64
+                icon: 'data\\left_arrow.png'
+                on_release:
+                    root.bt_back_pressed()
+                    app.root.current = 'mainWindow'
+                    root.manager.transition.direction = 'right'
+
+            Label:
+                size: 64, 64
+
+            ActionButton:
+                size: 64, 64
+                icon: 'data\\save.png'
+                on_release:
+                    tr = root.bt_save_pressed()
+                    if tr: app.root.current = 'mainWindow'
+                    if tr: root.manager.transition.direction = 'right'
+                    if not tr: print('lbl error')
+
+#-------------------------------------------------------------------------------------
+#       Type
+#-------------------------------------------------------------------------------------
+
+        GridLayout:
+            cols: 8
+            size_hint: 1, 0.15
+
+            Button:
+                id: bt_income
+                text: 'Income'
+                on_press:
+                    root.ief_bt_pressed(self)
+
+            Button:
+                id: bt_expence
+                text: 'Expence'
+                on_press:
+                    root.ief_bt_pressed(self)
+
+            Button:
+                id: bt_transfer
+                text: 'Transfer'
+                on_press:
+                    root.ief_bt_pressed(self)
+
+#-------------------------------------------------------------------------------------
+#       Calculate screen
+#-------------------------------------------------------------------------------------
+
+        GridLayout:
+            cols: 3
+
+            Label:
+                id: current_tran_lbl
+                size_hint: 0.3, 1
+                text: '+'
+                font_size: 60
+
+            Label:
+                id: main_lbl
+                text: ''
+                font_size: 35
+
+            Label:
+                id: current_tran_curse
+                size_hint: 0.4, 1
+                text: 'GEL'
+                font_size: 30
+
+#-------------------------------------------------------------------------------------
+#       Account choice
+#-------------------------------------------------------------------------------------
+
+        GridLayout:
+            cols: 1
+            size_hint: 1, 0.4
+
+            GridLayout:
+                cols: 3
+
+                Label:
+                    id: acc_lbl_1
+                    font_size: 15
+                    text: 'Account'
+
+                Label:
+                    id: acc_lbl_mid
+                    size_hit: 0.1, 0.1
+                    font_size: 20
+                    text: ''
+
+                Label:
+                    id: acc_lbl_2
+                    font_size: 15
+                    text: 'Category'
+
+            GridLayout:
+                cols: 3
+
+                GridLayout:
+                    cols: 2
+
+                    Button:
+                        text: 'max'
+                        size_hint: 0.4, 1
+                        on_release:
+                            root.bt_max_pressed()
+
+                    Spinner:
+                        id: sp1
+                        values: []
+                        text: ''
+                        on_text:
+                            root.spinner_refresh()
+
+                Spinner:
+                    id: sp2
+                    values: []
+                    text: ''
+                    on_text:
+                        root.spinner_refresh()
+
+#-------------------------------------------------------------------------------------
+#       Numpad
+#-------------------------------------------------------------------------------------
+
+        GridLayout:
+            size_hint: 1, 1.5
+            cols: 2
+
+            GridLayout:
+                cols: 2
+
+                Button:
+                    text: '7'
+                    on_press: root.bt_num_pressed(self)
+
+                Button:
+                    text: '8'
+                    on_press: root.bt_num_pressed(self)
+
+                Button:
+                    text: '4'
+                    on_press: root.bt_num_pressed(self)
+
+                Button:
+                    text: '5'
+                    on_press: root.bt_num_pressed(self)
+
+                Button:
+                    text: '1'
+                    on_press: root.bt_num_pressed(self)
+
+                Button:
+                    text: '2'
+                    on_press: root.bt_num_pressed(self)
+
+                Button:
+                    text: '.'
+                    on_press: root.bt_num_pressed(self)
+
+                Button:
+                    text: '0'
+                    on_press: root.bt_num_pressed(self)
+
+            GridLayout:
+                cols: 2
+
+                GridLayout:
+                    cols: 1
+                    Button:
+                        text: '9'
+                        on_press: root.bt_num_pressed(self)
+
+                    Button:
+                        text: '6'
+                        on_press: root.bt_num_pressed(self)
+
+                    Button:
+                        text: '3'
+                        on_press: root.bt_num_pressed(self)
+
+                    Button:
+                        text: '|<--'
+                        on_press: root.bt_backspace_pressed()
+
+                GridLayout:
+                    cols: 1
+
+                    Button:
+                        text: '/'
+                        on_press: root.bt_op_pressed(self)
+
+                    Button:
+                        text: '*'
+                        on_press: root.bt_op_pressed(self)
+
+                    Button:
+                        text: '-'
+                        on_press: root.bt_op_pressed(self)
+
+                    Button:
+                        text: '+'
+                        on_press: root.bt_op_pressed(self)
+
+                    Button:
+                        text: '='
+                        on_press: root.bt_eq_pressed()
+
+#-------------------------------------------------------------------------------------
+
+
+<CategoriesWindow>
+    name: 'categoriesWindow'
+
+    categories_grid: categories_grid
+
+
+    GridLayout:
+        cols: 1
+        padding: 10, 0, 10, 10
+
+#-------------------------------------------------------------------------------------
+#       Navbar
+#-------------------------------------------------------------------------------------
+        BoxLayout:
+            size_hint: 1, None
+            size: 64, 64
+
+            ActionButton:
+                size: 64, 64
+                icon: 'data\\add.png'
+                on_release:
+                    con = root.add_bt_pressed()
+                    if con: app.root.current = 'categoryEditWindow'
+                    if con: root.manager.transition.direction = 'right'
+            Label:
+                size: 64, 64
+
+            ActionButton:
+                size: 64, 64
+                icon: 'data\\right_arrow.png'
+                on_release:
+                    app.root.current = 'mainWindow'
+                    root.manager.transition.direction = 'left'
+
+#-------------------------------------------------------------------------------------
+#       Categories
+#-------------------------------------------------------------------------------------
+
+        GridLayout:
+            id: categories_grid
+            cols: 1
+
+
+<CategoryEditWindow>
+    name: 'categoryEditWindow'
+
+    txi_name: txi_name
+
+
+    GridLayout:
+        cols: 1
+        padding: 10, 0, 10, 10
+
+#-------------------------------------------------------------------------------------
+#       Navbar
+#-------------------------------------------------------------------------------------
+
+        BoxLayout:
+            size_hint: 1, None
+            size: 64, 64
+
+            ActionButton:
+                size: 64, 64
+                icon: 'data\\trash.png'
+                on_release:
+                    con = root.bt_del_pressed()
+                    if con: app.root.current = 'categoriesWindow'
+                    if con: root.manager.transition.direction = 'left'
+
+            Label:
+                size: 64, 64
+
+            ActionButton:
+                size: 64, 64
+                icon: 'data\\save.png'
+                on_release:
+                    con = root.bt_save_pressed()
+                    if con: app.root.current = 'categoriesWindow'
+                    if con: root.manager.transition.direction = 'left'
+
+#-------------------------------------------------------------------------------------
+#       Panel
+#-------------------------------------------------------------------------------------
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: 1, 1
+            spacing: 10
+
+            GridLayout:
+                size_hint_y: None
+                cols: 1
+
+                Label:
+                    font_size: 25
+                    text: 'Category name:'
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'center'
+
+                TextInput:
+                    id: txi_name
+                    multiline: False
+                    width: 60
+                    text: ''
+                    font_size: 25
+                    halign: 'left'
+                    valign: 'center'
+                    text_size: self.size
+
+            GridLayout:
+                cols: 1
